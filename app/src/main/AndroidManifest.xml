@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityDeviceAttendance"></activity>
+        <activity android:name=".ActivityStartDeviceEnrollment"></activity>
+        <activity android:name=".ActivityManualAttendance" />
+        <activity android:name=".ActivityDeviceAttendance" />
         <activity android:name=".ActivityResource" />
         <activity android:name=".ActivityMarks" />
         <activity android:name=".ActivityQRcodeGenerator" />

@@ -21,6 +21,18 @@
             android:textColor="#FFFFFF"
             android:gravity="center"
             android:background="@drawable/curved_background"/>
+        <TextView
+            android:id="@+id/student_id"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="0.4"
+            android:layout_margin="20dp"
+            android:padding="5dp"
+            android:text="Student ID"
+            android:textSize="20dp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:background="@drawable/curved_background"/>
         <ProgressBar
             android:id="@+id/progressbar"
             android:layout_width="match_parent"

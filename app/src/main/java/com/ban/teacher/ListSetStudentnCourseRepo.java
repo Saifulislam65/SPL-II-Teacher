@@ -6,11 +6,11 @@ public class ListSetStudentnCourseRepo {
     public ListSetStudentnCourseRepo() {
     }
 
-    public ListSetStudentnCourseRepo(String studentMail,  String attendance, String uid) {
+    public ListSetStudentnCourseRepo(String studentMail, String uid) {
         this.studentMail = studentMail;
-        this.attendance = attendance;
         this.uid = uid;
     }
+
 
     public String getUid() {
         return uid;
@@ -20,13 +20,6 @@ public class ListSetStudentnCourseRepo {
         this.uid = uid;
     }
 
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
 
     public String getStudentMail() {
         return studentMail;
@@ -37,11 +30,4 @@ public class ListSetStudentnCourseRepo {
     }
 
 
-    public String getAttendance() {
-        return attendance;
-    }
-
-    public void setAttendance(String attendance) {
-        this.attendance = attendance;
-    }
 }

@@ -22,4 +22,15 @@
         android:textStyle="bold"
         android:text="Start"/>
 
+    <EditText
+        android:id="@+id/device_secret"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:hint="Device Secret"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:textSize="20dp"/>
+
 </RelativeLayout>
