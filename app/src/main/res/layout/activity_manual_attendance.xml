@@ -33,6 +33,7 @@
             android:textColor="#FFFFFF"
             android:gravity="center"
             android:background="@drawable/curved_background"/>
+
         <LinearLayout
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
@@ -94,7 +95,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:padding="10dp"
-                android:hint="NULL"
+                android:hint="Not Given"
                 android:inputType="number"
                 android:layout_marginTop="8dp"
                 android:textSize="20dp"/>

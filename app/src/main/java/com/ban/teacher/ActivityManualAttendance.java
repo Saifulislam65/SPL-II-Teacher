@@ -4,7 +4,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +24,9 @@ import java.util.Date;
 public class ActivityManualAttendance extends AppCompatActivity {
     Button absent, present, next, back;
     TextView studentInfo, date, day, attendanceStatus, Id;
-    ArrayList<ListSetStudentnCourseRepo> arrayList ;
+    ArrayList<ListSetStudentnCourseRepo> arrayList , singleValue;
     DatabaseReference databaseReference, databaseReferenceSetAttendance, getAttendance, getID;
+    Spinner spinner;
     int i = 0;
     String getID_path;
     String id;
@@ -40,6 +43,7 @@ public class ActivityManualAttendance extends AppCompatActivity {
 
         studentInfo = findViewById(R.id.manual_attendance_student_info);
         Id = findViewById(R.id.student_id);
+
         date = findViewById(R.id.manual_attendance_date);
         day = findViewById(R.id.manual_attendance_day);
         attendanceStatus = findViewById(R.id.manual_attendance_status);
@@ -49,6 +53,20 @@ public class ActivityManualAttendance extends AppCompatActivity {
 
         final String courseKey = ActivityInsideCourse.courseCodeForQrGenerator;
         arrayList = new ArrayList<ListSetStudentnCourseRepo>();
+//        singleValue = new ArrayList<>();
+//        spinner = findViewById(R.id.dropDown);
+//         <Spinner
+//        android:id="@+id/dropDown"
+//        android:layout_width="match_parent"
+//        android:layout_height="60dp"
+//        android:layout_weight="0.4"
+//        android:layout_margin="20dp"
+//        android:textSize="20dp"
+//        android:padding="5dp"
+//        android:textColor="#FFFFFF"
+//        android:gravity="center"
+//        android:background="@drawable/curved_background"/>
+
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/");
 
@@ -66,12 +84,15 @@ public class ActivityManualAttendance extends AppCompatActivity {
 
                         ListSetStudentnCourseRepo listSetStudentnCourseRepo = new ListSetStudentnCourseRepo(studentEmail, uid);
                         arrayList.add(listSetStudentnCourseRepo);
+                        //singleValue.add(studentEmail);
                         studentInfo.setText(arrayList.get(i).getStudentMail());
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), "Ops...something is wrong!", Toast.LENGTH_LONG).show();
                     }
 
                 }
+//                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, );
+
 
             }
 
@@ -99,9 +120,15 @@ public class ActivityManualAttendance extends AppCompatActivity {
                             try{
                                 id = dataSnapshot.child("studentID").getValue(String.class);
                             }catch (Exception e){
-                                id = "NULL";
+                                id = "Roll not given";
                             }
-                            Id.setText(id);
+
+                            if(id==""){
+                                Id.setText("Roll not given");
+                            }else{
+                                Id.setText(id);
+                            }
+
                         }
 
                         @Override
@@ -152,9 +179,13 @@ public class ActivityManualAttendance extends AppCompatActivity {
                             try{
                                 id = dataSnapshot.child("studentID").getValue(String.class);
                             }catch (Exception e){
-                                id = "NULL";
+                                id = "Roll not given";
                             }
-                            Id.setText(id);
+                            if(id==""){
+                                Id.setText("Roll not given");
+                            }else{
+                                Id.setText(id);
+                            }
                         }
 
                         @Override
@@ -279,7 +310,7 @@ public class ActivityManualAttendance extends AppCompatActivity {
         else if(status == "0")
             view.setText("Absent");
         else
-            view.setText("NULL");
+            view.setText("Not Given");
 
     }
 }
