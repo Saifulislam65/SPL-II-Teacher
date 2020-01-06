@@ -156,7 +156,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/F:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_fast_forward_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/E:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/editor/ic_border_clear_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -166,8 +166,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ff1744" />
-                            <entry key="outputName" value="next" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="sheet" />
                             <entry key="sourceFile" value="C:\Users\NILOY\Downloads\qr-code-scan.svg" />
                           </map>
                         </option>

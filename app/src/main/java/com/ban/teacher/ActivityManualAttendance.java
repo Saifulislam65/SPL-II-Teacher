@@ -24,7 +24,8 @@ import java.util.Date;
 public class ActivityManualAttendance extends AppCompatActivity {
     Button absent, present, next, back;
     TextView studentInfo, date, day, attendanceStatus, Id;
-    ArrayList<ListSetStudentnCourseRepo> arrayList , singleValue;
+    ArrayList<ListSetStudentnCourseRepo> arrayList  ;
+    ArrayList<String> singleValue;
     DatabaseReference databaseReference, databaseReferenceSetAttendance, getAttendance, getID;
     Spinner spinner;
     int i = 0;
@@ -43,6 +44,7 @@ public class ActivityManualAttendance extends AppCompatActivity {
 
         studentInfo = findViewById(R.id.manual_attendance_student_info);
         Id = findViewById(R.id.student_id);
+        spinner = findViewById(R.id.dropDown);
 
         date = findViewById(R.id.manual_attendance_date);
         day = findViewById(R.id.manual_attendance_day);
@@ -53,19 +55,8 @@ public class ActivityManualAttendance extends AppCompatActivity {
 
         final String courseKey = ActivityInsideCourse.courseCodeForQrGenerator;
         arrayList = new ArrayList<ListSetStudentnCourseRepo>();
-//        singleValue = new ArrayList<>();
-//        spinner = findViewById(R.id.dropDown);
-//         <Spinner
-//        android:id="@+id/dropDown"
-//        android:layout_width="match_parent"
-//        android:layout_height="60dp"
-//        android:layout_weight="0.4"
-//        android:layout_margin="20dp"
-//        android:textSize="20dp"
-//        android:padding="5dp"
-//        android:textColor="#FFFFFF"
-//        android:gravity="center"
-//        android:background="@drawable/curved_background"/>
+        singleValue = new ArrayList<String>();
+
 
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/");
@@ -76,6 +67,7 @@ public class ActivityManualAttendance extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 arrayList.clear();
+                singleValue.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     System.out.println("Parent: "+dataSnapshot);
                     try {
@@ -84,14 +76,38 @@ public class ActivityManualAttendance extends AppCompatActivity {
 
                         ListSetStudentnCourseRepo listSetStudentnCourseRepo = new ListSetStudentnCourseRepo(studentEmail, uid);
                         arrayList.add(listSetStudentnCourseRepo);
-                        //singleValue.add(studentEmail);
+                        singleValue.add(studentEmail);
                         studentInfo.setText(arrayList.get(i).getStudentMail());
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), "Ops...something is wrong!", Toast.LENGTH_LONG).show();
                     }
 
                 }
-//                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, );
+                try{
+                    if(!arrayList.isEmpty()){
+                        getAttendance = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/"+arrayList.get(0).getUid()+"/attendance/"+returnDate());
+                        getAttendance.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                String attendance = dataSnapshot.getValue(String.class);
+                                System.out.println("Attendance: "+ attendance);
+                                attendanceStatus.setText(attendance);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, singleValue);
+                        spinner.setAdapter(dataAdapter);
+                        i=spinner.getSelectedItemPosition();
+                    }else{
+
+                    }
+                }catch (NullPointerException e){
+
+                }
 
 
             }
@@ -100,7 +116,10 @@ public class ActivityManualAttendance extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+
         });
+
+
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,7 +239,7 @@ public class ActivityManualAttendance extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(arrayList.size()!=0){
-
+                    i=spinner.getSelectedItemPosition();
                     databaseReferenceSetAttendance = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/"+arrayList.get(i).getUid()+"/attendance/"+returnDate());
 
                     databaseReferenceSetAttendance.setValue("1");
@@ -252,7 +271,7 @@ public class ActivityManualAttendance extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(arrayList.size()!=0){
-
+                    i=spinner.getSelectedItemPosition();
                     databaseReferenceSetAttendance = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/"+arrayList.get(i).getUid()+"/attendance/"+returnDate());
 
                     databaseReferenceSetAttendance.setValue("0");
@@ -285,7 +304,7 @@ public class ActivityManualAttendance extends AppCompatActivity {
     public void setDate (TextView view){
 
         Date today = Calendar.getInstance().getTime();//getting date
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");//formating according to my need
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");//formating according to my need
         String date = formatter.format(today);
         view.setText(date);
     }
@@ -299,7 +318,7 @@ public class ActivityManualAttendance extends AppCompatActivity {
 
     public String returnDate(){
         Date today = Calendar.getInstance().getTime();//getting date
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");//formating according to my need
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");//formating according to my need
         String date = formatter.format(today);
         return date;
     }
@@ -313,4 +332,5 @@ public class ActivityManualAttendance extends AppCompatActivity {
             view.setText("Not Given");
 
     }
+
 }
