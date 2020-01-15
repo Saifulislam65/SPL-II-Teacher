@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -14,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class ActivityStartDeviceEnrollment extends AppCompatActivity {
     Button device, QR;
-    EditText deviceSecret;
+    TextView deviceSecret;
     int colorCounter = 0;
     DatabaseReference deviceReference;
     @Override
@@ -89,5 +90,15 @@ public class ActivityStartDeviceEnrollment extends AppCompatActivity {
         }else {
             Toast.makeText(getApplicationContext(), "Secret key is null!", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        String secret = deviceSecret.getText().toString();
+       if(secret != null){
+           deviceReference.child(secret).child("courseKey").setValue("NoCourseFound");
+           deviceReference.child(secret).child("mode").setValue("2");
+       }
     }
 }

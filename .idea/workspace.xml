@@ -5,9 +5,30 @@
       <config />
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="4194c4a5-6e35-4135-9f0b-9b50fb99ab89" name="Default Changelist" comment="Initial Commit&#10;*Individual Course can be handled">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/DbHandlerAttendanceInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/DbHandlerFetchStudentInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityAttendanceSheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityAttendanceSheet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityDeviceAttendance.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityDeviceAttendance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityManualAttendance.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityManualAttendance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityMarks.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityMarks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityStartDeviceEnrollment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityStartDeviceEnrollment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/AdapterCreateCourse.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/AdapterCreateCourse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/FragmentCreateCourse.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/FragmentCreateCourse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_attendance.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_device_attendance.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_start_device_enrollment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_start_device_enrollment.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,6 +39,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="954f173e" />
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -30,8 +52,22 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/FragmentCreateCourse.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="79" column="107" lean-forward="true" selection-start-line="79" selection-start-column="107" selection-end-line="79" selection-end-column="107" />
+            <state relative-caret-position="277">
+              <caret line="49" column="108" selection-start-line="49" selection-start-column="108" selection-end-line="49" selection-end-column="108" />
+              <folding>
+                <element signature="e#1820#1991#0" expanded="true" />
+                <element signature="e#1990#1991#0" expanded="true" />
+                <element signature="method#createCourseMethod#0;class#FragmentCreateCourse#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityCreateCourse.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-285">
+              <caret line="40" selection-start-line="40" selection-end-line="40" />
             </state>
           </provider>
         </entry>
@@ -59,9 +95,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityCreateCourse.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ListTeacherProfileInfo.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ListCourseInTeahcerRepo.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_fragment_teacher_profile.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/FragmentCourses.java" />
@@ -73,16 +106,13 @@
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/curved_background_ash.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/round_background_ash.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_fragment_create_course.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_fragment_dashboard.xml" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityInsideCourse.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityQRcodeGenerator.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/AdapterCreateCourse.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/FragmentTeacherProfile.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ListGetTeacherID.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ListSetTeacherID.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/FragmentCreateCourse.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ListResource.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_resource.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityResource.java" />
@@ -95,13 +125,8 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/adapter_course_recyclerview.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ListDevice.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_marks.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityMarks.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_teacher_info.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_device_attendance.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityDeviceAttendance.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityStartDeviceEnrollment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_start_device_enrollment.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_manual_attendance.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_fragment_attendance.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/FragmentAttendance.java" />
@@ -109,15 +134,26 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ListAttendance.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_attendance_sheet.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityAttendanceSheet.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/AdapterCreateCourse.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_fragment_dashboard.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/DbHandlerFetchStudentInfo.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/DbHandlerFetchAttendanceInfo.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/DbHandlerAttendanceInfo.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityManualAttendance.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_device_attendance.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_start_device_enrollment.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityDeviceAttendance.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityStartDeviceEnrollment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityMarks.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ban/teacher/FragmentCreateCourse.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1915" />
-    <option name="y" value="-13" />
-    <option name="width" value="579" />
-    <option name="height" value="735" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="170" />
+    <option name="y" value="91" />
+    <option name="width" value="1026" />
+    <option name="height" value="546" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -125,6 +161,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -151,8 +189,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -170,8 +206,9 @@
     <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\#Software Project Lab 2\Android App\Teacher\app\src\main\res\drawable" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\#Codes\AndroidApps\#Software Project Lab 2\Android App\Teacher\app\src\main\res\layout" />
+      <recent name="F:\#Software Project Lab 2\Android App\Teacher\app\src\main\res\drawable-v24" />
     </key>
     <key name="android.template.packageName">
       <recent name="com.ban.teacher" />
@@ -182,9 +219,8 @@
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.ban.teacher" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\#Codes\AndroidApps\#Software Project Lab 2\Android App\Teacher\app\src\main\res\layout" />
-      <recent name="F:\#Software Project Lab 2\Android App\Teacher\app\src\main\res\drawable-v24" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\#Software Project Lab 2\Android App\Teacher\app\src\main\res\drawable" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -290,11 +326,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1358" y="-8" width="1616" height="876" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.20886889" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.2246596" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -302,22 +338,22 @@
       <window_info id="Designer" order="6" />
       <window_info id="Capture Tool" order="7" />
       <window_info id="Resources Explorer" order="8" />
-      <window_info anchor="bottom" id="Run" order="0" weight="0.06382979" />
-      <window_info anchor="bottom" id="Logcat" order="1" />
+      <window_info anchor="bottom" id="Run" order="0" weight="0.30441898" />
+      <window_info anchor="bottom" id="Logcat" order="1" weight="0.31493944" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="4" />
+      <window_info anchor="bottom" id="Terminal" order="4" weight="0.32974428" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.50075644" side_tool="true" weight="0.3" />
       <window_info anchor="bottom" id="Version Control" order="6" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.49924356" visible="true" weight="0.09421265" />
-      <window_info anchor="bottom" id="Android Profiler" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Find" order="9" weight="0.3295082" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.49924356" weight="0.12111293" />
+      <window_info anchor="bottom" id="Android Profiler" order="8" />
+      <window_info anchor="bottom" id="Find" order="9" weight="0.32839838" />
       <window_info anchor="bottom" id="Messages" order="10" visible="true" weight="0.3295082" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" weight="0.32980332" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="right" id="Preview" order="4" weight="0.23903178" />
+      <window_info anchor="right" id="Preview" order="4" weight="0.23827533" />
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="right" id="Assistant" order="6" weight="0.24432677" />
     </layout>
@@ -327,47 +363,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="Initial Commit&#10;*Individual Course can be handled" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_fragment_courses.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="21" selection-end-column="17" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ListTeacherProfileInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_fragment_dashboard.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="40" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityCreateCourse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/AdapterCreateCourse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-799">
-          <caret line="4" column="58" selection-start-line="4" selection-start-column="58" selection-end-line="4" selection-end-column="58" />
         </state>
       </provider>
     </entry>
@@ -551,43 +550,6 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityTeacherInfo.java">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="56" column="25" selection-start-line="56" selection-start-column="25" selection-end-line="56" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityDeviceAttendance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="31" column="35" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityStartDeviceEnrollment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="22" column="53" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_device_attendance.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="48" column="37" selection-start-line="48" selection-start-column="37" selection-end-line="48" selection-end-column="37" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_start_device_enrollment.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_manual_attendance.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="178">
@@ -641,26 +603,6 @@
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityAttendanceSheet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="44" column="77" selection-start-line="44" selection-start-column="77" selection-end-line="44" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityMarks.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="class#2175:3420" />
-            <element signature="e#3592#6018#1" />
-            <element signature="e#6392#8874#1" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
@@ -668,20 +610,125 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_fragment_dashboard.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1241">
+          <caret line="73" column="54" selection-start-line="73" selection-start-column="54" selection-end-line="73" selection-end-column="54" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/AdapterCreateCourse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_device_attendance.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityManualAttendance.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="331" column="38" selection-start-line="331" selection-start-column="38" selection-end-line="331" selection-end-column="38" />
+        <state relative-caret-position="1666">
+          <caret line="117" column="80" selection-start-line="117" selection-start-column="80" selection-end-line="117" selection-end-column="80" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#setDate#0;class#ActivityManualAttendance#0" />
+            <element signature="method#setDay#0;class#ActivityManualAttendance#0" />
+            <element signature="method#returnDate#0;class#ActivityManualAttendance#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_start_device_enrollment.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityAttendanceSheet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1649">
+          <caret line="113" column="87" selection-start-line="113" selection-start-column="87" selection-end-line="113" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/DbHandlerFetchStudentInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/DbHandlerAttendanceInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="19" column="83" selection-start-line="19" selection-start-column="83" selection-end-line="19" selection-end-column="83" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getSingleDateAttendance#0;class#DbHandlerAttendanceInfo#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityDeviceAttendance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="94" column="70" selection-start-line="94" selection-start-column="70" selection-end-line="94" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityStartDeviceEnrollment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="90" column="101" lean-forward="true" selection-start-line="90" selection-start-column="101" selection-end-line="90" selection-end-column="101" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityMarks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="226" column="106" lean-forward="true" selection-start-line="226" selection-start-column="106" selection-end-line="226" selection-end-column="106" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/ActivityCreateCourse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-285">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ban/teacher/FragmentCreateCourse.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="79" column="107" lean-forward="true" selection-start-line="79" selection-start-column="107" selection-end-line="79" selection-end-column="107" />
+        <state relative-caret-position="277">
+          <caret line="49" column="108" selection-start-line="49" selection-start-column="108" selection-end-line="49" selection-end-column="108" />
+          <folding>
+            <element signature="e#1820#1991#0" expanded="true" />
+            <element signature="e#1990#1991#0" expanded="true" />
+            <element signature="method#createCourseMethod#0;class#FragmentCreateCourse#0" />
+          </folding>
         </state>
       </provider>
     </entry>

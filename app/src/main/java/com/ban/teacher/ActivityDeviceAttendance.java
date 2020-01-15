@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -19,7 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 public class ActivityDeviceAttendance extends AppCompatActivity {
 
     Button device, QR;
-    EditText deviceSecret;
+    TextView deviceSecret;
+    String code;
     int colorCounter = 0;
     DatabaseReference deviceReference;
     @Override
@@ -76,7 +78,7 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
         if (requestCode == 0) {
 
             if (resultCode == RESULT_OK) {
-                String code = data.getStringExtra("SCAN_RESULT");
+                code = data.getStringExtra("SCAN_RESULT");
                 deviceSecret.setText(code);
             }
             if(resultCode == RESULT_CANCELED){
@@ -92,7 +94,18 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
             deviceReference.child(secret).child("courseKey").setValue(ActivityInsideCourse.courseCodeForQrGenerator);
             deviceReference.child(secret).child("mode").setValue("0");
         }else {
-            Toast.makeText(getApplicationContext(), "Secret key is null!",Toast.LENGTH_LONG ).show();
+            Toast.makeText(getApplicationContext(), "Invalid Secret Key!",Toast.LENGTH_LONG ).show();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        String secret = deviceSecret.getText().toString();
+        System.out.println("Secret: "+secret);
+        if(secret!= null){
+            deviceReference.child(secret).child("courseKey").setValue("NoCourseFound");
+            deviceReference.child(secret).child("mode").setValue("2");
         }
     }
 }

@@ -49,7 +49,7 @@ public class ActivityMarks extends AppCompatActivity {
         final String courseKey = ActivityInsideCourse.courseCodeForQrGenerator;
         arrayList = new ArrayList<ListSetStudentnCourseRepo>();
         arrayID = new ArrayList<String>();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/marks/");
         getID = FirebaseDatabase.getInstance().getReference();
 
 
@@ -119,7 +119,7 @@ public class ActivityMarks extends AppCompatActivity {
 
 
 
-                   getMarks = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/"+arrayList.get(i).getUid()+"/marks/");
+                   getMarks = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/marks/"+arrayList.get(i).getUid()+"/sheet/");
                    getMarks.addValueEventListener(new ValueEventListener() {
                        @Override
                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -177,7 +177,7 @@ public class ActivityMarks extends AppCompatActivity {
 
                         }
                     });
-                    getMarks = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/"+arrayList.get(i).getUid()+"/marks/");
+                    getMarks = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/marks/"+arrayList.get(i).getUid()+"/sheet/");
                     getMarks.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -220,9 +220,11 @@ public class ActivityMarks extends AppCompatActivity {
                            f.getText().toString()
                    );
 
-                   databaseReferenceSetMarks = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/"+arrayList.get(i).getUid()+"/marks/");
+                   databaseReferenceSetMarks = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/marks/"+arrayList.get(i).getUid()+"/sheet/");
 
                    databaseReferenceSetMarks.setValue(listMarks);
+
+                   Toast.makeText(getApplicationContext(), "Update Successful", Toast.LENGTH_LONG).show();
                }else{
                    studentInfo.setText("NULL");
                    Toast.makeText(getApplicationContext(), "No student selected!", Toast.LENGTH_LONG).show();

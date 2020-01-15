@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,7 +47,13 @@ public class FragmentCreateCourse extends Fragment {
         createCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createCourseMethod();
+                if(courseName.getText().toString().length()>2  && courseCode.getText().toString().length()>3){
+                    createCourseMethod();
+                }else {
+
+                    Toast.makeText(getContext(), "Invalid Field!", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
@@ -67,7 +74,7 @@ public class FragmentCreateCourse extends Fragment {
                 "Student List",
                 "Assign Task",
                 "Attendance Sheet",
-                "marks",
+                "mark",
                 "resource"
         );
         databaseReference.child(key).setValue(createCourse);
@@ -81,6 +88,7 @@ public class FragmentCreateCourse extends Fragment {
         ListSetTeacherID listSetTeacherID = new ListSetTeacherID(courseStore);
         teacherProfileInCourse.setValue(listSetTeacherID);
 
+        Toast.makeText(getContext(), "Course Created.", Toast.LENGTH_LONG).show();
         cleanField();
         progressBar.setVisibility(View.GONE);
     }

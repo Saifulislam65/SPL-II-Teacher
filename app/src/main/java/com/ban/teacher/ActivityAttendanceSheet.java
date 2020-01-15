@@ -52,7 +52,7 @@ public class ActivityAttendanceSheet extends AppCompatActivity {
         getID = FirebaseDatabase.getInstance().getReference();
 
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/attendance/");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -74,7 +74,11 @@ public class ActivityAttendanceSheet extends AppCompatActivity {
 
                 }
 
-                studentInfo.setText(arrayList.get(i).getStudentMail());
+                try{
+                    studentInfo.setText(arrayList.get(i).getStudentMail());
+                }catch (Exception e){
+
+                }
             }
 
             @Override
@@ -114,7 +118,7 @@ public class ActivityAttendanceSheet extends AppCompatActivity {
 
 
 
-                    individualAttendanceSheet = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/"+arrayList.get(i).getUid()+"/attendance/");
+                    individualAttendanceSheet = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/attendance/"+arrayList.get(i).getUid()+"/sheet/");
                     individualAttendanceSheet.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -182,7 +186,7 @@ public class ActivityAttendanceSheet extends AppCompatActivity {
 
                         }
                     });
-                    individualAttendanceSheet = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/"+arrayList.get(i).getUid()+"/attendance/");
+                    individualAttendanceSheet = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/attendance/"+arrayList.get(i).getUid()+"/sheet/");
                     individualAttendanceSheet.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
