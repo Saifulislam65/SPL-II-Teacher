@@ -71,11 +71,7 @@ public class FragmentCreateCourse extends Fragment {
                 courseCode.getText().toString(),
                 courseClass.getText().toString(),
                 "Teacher ID",
-                "Student List",
-                "Assign Task",
-                "Attendance Sheet",
-                "mark",
-                "resource"
+                "0"
         );
         databaseReference.child(key).setValue(createCourse);
 

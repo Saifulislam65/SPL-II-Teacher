@@ -4,23 +4,18 @@ package com.ban.teacher;
 public class AdapterCreateCourse {
     String a1_courseName, a2_courseCode, a3_departmentName;
 
-    String a4_teacherID, a5_studentList, assignTask, attendanceSheet, mark, resource;
+    String a4_teacherID, a5_courseEnrollmentMode;
 
     public AdapterCreateCourse() {
     }
 
     public AdapterCreateCourse(String a1_courseName, String a2_courseCode, String a3_departmentName,
-                               String a4_teacherID, String a5_studentList, String assignTask,
-                               String attendanceSheet, String mark, String resource) {
+                               String a4_teacherID, String a5_courseEnrollmentMode) {
         this.a1_courseName = a1_courseName;
         this.a2_courseCode = a2_courseCode;
         this.a3_departmentName = a3_departmentName;
         this.a4_teacherID = a4_teacherID;
-        this.a5_studentList = a5_studentList;
-        this.assignTask = assignTask;
-        this.attendanceSheet = attendanceSheet;
-        this.mark = mark;
-        this.resource = resource;
+        this.a5_courseEnrollmentMode = a5_courseEnrollmentMode;
     }
 
     public String getA1_courseName() {
@@ -55,43 +50,11 @@ public class AdapterCreateCourse {
         this.a4_teacherID = a4_teacherID;
     }
 
-    public String getA5_studentList() {
-        return a5_studentList;
+    public String getA5_courseEnrollmentMode() {
+        return a5_courseEnrollmentMode;
     }
 
-    public void setA5_studentList(String a5_studentList) {
-        this.a5_studentList = a5_studentList;
-    }
-
-    public String getAssignTask() {
-        return assignTask;
-    }
-
-    public void setAssignTask(String assignTask) {
-        this.assignTask = assignTask;
-    }
-
-    public String getAttendanceSheet() {
-        return attendanceSheet;
-    }
-
-    public void setAttendanceSheet(String attendanceSheet) {
-        this.attendanceSheet = attendanceSheet;
-    }
-
-    public String getMark() {
-        return mark;
-    }
-
-    public void setMark(String mark) {
-        this.mark = mark;
-    }
-
-    public String getResource() {
-        return resource;
-    }
-
-    public void setResource(String resource) {
-        this.resource = resource;
+    public void setA5_courseEnrollmentMode(String a5_courseEnrollmentMode) {
+        this.a5_courseEnrollmentMode = a5_courseEnrollmentMode;
     }
 }

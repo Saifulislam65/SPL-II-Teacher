@@ -146,7 +146,7 @@
            <android.support.v7.widget.CardView
                android:foreground="?android:attr/selectableItemBackground"
                android:clickable="true"
-               android:id="@+id/card_resource"
+               android:id="@+id/card_enrollment"
                android:layout_width="160dp"
                android:layout_height="190dp"
                android:layout_margin="10dp">
@@ -166,7 +166,7 @@
                        android:layout_height="wrap_content"
                        android:textStyle="bold"
                        android:layout_marginTop="10dp"
-                       android:text="Resource"/>
+                       android:text="Enrollment"/>
                    <View
                        android:layout_width="match_parent"
                        android:layout_height="1dp"
@@ -176,7 +176,7 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:gravity="center"
-                       android:text="Share books, notes and any resource link to the students"
+                       android:text="Restrict student to enroll withing time."
                        android:padding="5dp"
                        android:textColor="@android:color/darker_gray"/>
 

@@ -20,6 +20,7 @@ public class FragmentDashboard extends Fragment {
         CardView card_assignment = view.findViewById(R.id.card_assignment);
         CardView card_marks = view.findViewById(R.id.card_marks);
         CardView card_qrCode = view.findViewById(R.id.card_QR_Code);
+        CardView card_enroll = view.findViewById(R.id.card_enrollment);
 
         card_assignment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +44,15 @@ public class FragmentDashboard extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ActivityQRcodeGenerator.class);
+                startActivity(intent);
+
+            }
+        });
+
+        card_enroll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ActivityCourseEnrollmentMode.class);
                 startActivity(intent);
 
             }
