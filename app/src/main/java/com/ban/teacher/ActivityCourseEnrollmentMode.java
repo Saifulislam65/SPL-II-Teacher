@@ -18,6 +18,7 @@ public class ActivityCourseEnrollmentMode extends AppCompatActivity {
     private TextView enrollMode;
     private Button activate;
     private String mode = "0";
+    private int status;
     private DbHandlerCourseEnrollment dbHandlerCourseEnrollment;
     private DatabaseReference enrollmentMode;
 
@@ -36,8 +37,8 @@ public class ActivityCourseEnrollmentMode extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         try {
-                            mode = dataSnapshot.getValue(String.class);
-                            System.out.println("Inside mode: " + mode);
+                            status = dataSnapshot.getValue(Integer.class);
+                            System.out.println("Inside mode: " + status);
                         } catch (Exception e) {
                             mode = "Not Given";
                         }
@@ -48,15 +49,15 @@ public class ActivityCourseEnrollmentMode extends AppCompatActivity {
                         mode = "Wait";
                     }
                 });
-                if (mode == "1") {
+                if (status == 1) {
                     activate.setBackgroundResource(R.drawable.round_background_ash);
                     activate.setText("START");
-                    enrollmentMode.setValue("0");
+                    enrollmentMode.setValue(0);
                     enrollMode.setText("OFF");
-                } else if (mode == "0") {
+                } else if (status == 0) {
                     activate.setBackgroundResource(R.drawable.round_background);
                     activate.setText("STOP");
-                    enrollmentMode.setValue("1");
+                    enrollmentMode.setValue(1);
                     enrollMode.setText("ON");
                 } else {
                     System.out.println("Enrollment status update error");
@@ -72,7 +73,7 @@ public class ActivityCourseEnrollmentMode extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        System.out.println("ON START");
+        System.out.println("ON START mdoe:");
         activate.setBackgroundResource(R.drawable.round_background_ash);
         activate.setText("START");
         enrollMode.setText("OFF");
@@ -82,7 +83,7 @@ public class ActivityCourseEnrollmentMode extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         enrollmentMode = FirebaseDatabase.getInstance().getReference("Course/" + ActivityInsideCourse.courseCodeForQrGenerator + "/a5_courseEnrollmentMode");
-        enrollmentMode.setValue("0");
+        enrollmentMode.setValue(0);
     }
 }
 
