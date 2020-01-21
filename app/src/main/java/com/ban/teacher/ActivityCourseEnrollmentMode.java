@@ -74,16 +74,47 @@ public class ActivityCourseEnrollmentMode extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         System.out.println("ON START mdoe:");
-        activate.setBackgroundResource(R.drawable.round_background_ash);
+        /*activate.setBackgroundResource(R.drawable.round_background_ash);
         activate.setText("START");
-        enrollMode.setText("OFF");
+        enrollMode.setText("OFF");*/
+        enrollmentMode = FirebaseDatabase.getInstance().getReference("Course/" + ActivityInsideCourse.courseCodeForQrGenerator + "/a5_courseEnrollmentMode");
+        enrollmentMode.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                try {
+                    status = dataSnapshot.getValue(Integer.class);
+                    System.out.println("Inside mode Onstart: " + status);
+                    if (status == 0) {
+                        activate.setBackgroundResource(R.drawable.round_background_ash);
+                        activate.setText("START");
+                        enrollMode.setText("OFF");
+                    } else if (status == 1) {
+                        activate.setBackgroundResource(R.drawable.round_background);
+                        activate.setText("STOP");
+                        enrollMode.setText("ON");
+                    } else {
+                        System.out.println("Enrollment status update error");
+                        Toast.makeText(getApplicationContext(), "Can not connect to db", Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+                    mode = "Not Given";
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                mode = "Wait";
+            }
+        });
+        System.out.println("Status: "+status);
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        enrollmentMode = FirebaseDatabase.getInstance().getReference("Course/" + ActivityInsideCourse.courseCodeForQrGenerator + "/a5_courseEnrollmentMode");
-        enrollmentMode.setValue(0);
+       /* enrollmentMode = FirebaseDatabase.getInstance().getReference("Course/" + ActivityInsideCourse.courseCodeForQrGenerator + "/a5_courseEnrollmentMode");
+        enrollmentMode.setValue(0);*/
     }
 }
 

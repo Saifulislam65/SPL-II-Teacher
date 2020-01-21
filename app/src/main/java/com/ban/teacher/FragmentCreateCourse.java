@@ -71,7 +71,7 @@ public class FragmentCreateCourse extends Fragment {
                 courseCode.getText().toString(),
                 courseClass.getText().toString(),
                 "Teacher ID",
-                "0"
+                0
         );
         databaseReference.child(key).setValue(createCourse);
 

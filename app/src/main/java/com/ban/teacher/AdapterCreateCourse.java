@@ -4,13 +4,15 @@ package com.ban.teacher;
 public class AdapterCreateCourse {
     String a1_courseName, a2_courseCode, a3_departmentName;
 
-    String a4_teacherID, a5_courseEnrollmentMode;
+    String a4_teacherID;
+
+    int a5_courseEnrollmentMode;
 
     public AdapterCreateCourse() {
     }
 
     public AdapterCreateCourse(String a1_courseName, String a2_courseCode, String a3_departmentName,
-                               String a4_teacherID, String a5_courseEnrollmentMode) {
+                               String a4_teacherID, int a5_courseEnrollmentMode) {
         this.a1_courseName = a1_courseName;
         this.a2_courseCode = a2_courseCode;
         this.a3_departmentName = a3_departmentName;
@@ -50,11 +52,11 @@ public class AdapterCreateCourse {
         this.a4_teacherID = a4_teacherID;
     }
 
-    public String getA5_courseEnrollmentMode() {
+    public int getA5_courseEnrollmentMode() {
         return a5_courseEnrollmentMode;
     }
 
-    public void setA5_courseEnrollmentMode(String a5_courseEnrollmentMode) {
+    public void setA5_courseEnrollmentMode(int a5_courseEnrollmentMode) {
         this.a5_courseEnrollmentMode = a5_courseEnrollmentMode;
     }
 }
