@@ -24,11 +24,13 @@ import java.util.Date;
 public class ActivityManualAttendance extends AppCompatActivity {
     Button absent, present, next, back;
     TextView studentInfo, date, day, attendanceStatus, Id;
-    ArrayList<ListSetStudentnCourseRepo> arrayList , singleValue;
-    DatabaseReference databaseReference, databaseReferenceSetAttendance, getAttendance, getID;
+    ArrayList<ListSetStudentnCourseRepo> arrayList  ;
+    ArrayList<String> singleValue;
+    DatabaseReference databaseReference, getAttendance;
+    private DbHandlerFetchStudentInfo dbHandlerFetchStudentInfo;
+    private DbHandlerAttendanceInfo dbHandlerAttendanceInfo;
     Spinner spinner;
     int i = 0;
-    String getID_path;
     String id;
 
     @Override
@@ -43,6 +45,7 @@ public class ActivityManualAttendance extends AppCompatActivity {
 
         studentInfo = findViewById(R.id.manual_attendance_student_info);
         Id = findViewById(R.id.student_id);
+        spinner = findViewById(R.id.dropDown);
 
         date = findViewById(R.id.manual_attendance_date);
         day = findViewById(R.id.manual_attendance_day);
@@ -53,22 +56,12 @@ public class ActivityManualAttendance extends AppCompatActivity {
 
         final String courseKey = ActivityInsideCourse.courseCodeForQrGenerator;
         arrayList = new ArrayList<ListSetStudentnCourseRepo>();
-//        singleValue = new ArrayList<>();
-//        spinner = findViewById(R.id.dropDown);
-//         <Spinner
-//        android:id="@+id/dropDown"
-//        android:layout_width="match_parent"
-//        android:layout_height="60dp"
-//        android:layout_weight="0.4"
-//        android:layout_margin="20dp"
-//        android:textSize="20dp"
-//        android:padding="5dp"
-//        android:textColor="#FFFFFF"
-//        android:gravity="center"
-//        android:background="@drawable/curved_background"/>
+        singleValue = new ArrayList<String>();
 
+        dbHandlerFetchStudentInfo = new DbHandlerFetchStudentInfo();
+        dbHandlerAttendanceInfo = new DbHandlerAttendanceInfo();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/attendance/");
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -76,6 +69,7 @@ public class ActivityManualAttendance extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 arrayList.clear();
+                singleValue.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     System.out.println("Parent: "+dataSnapshot);
                     try {
@@ -84,15 +78,22 @@ public class ActivityManualAttendance extends AppCompatActivity {
 
                         ListSetStudentnCourseRepo listSetStudentnCourseRepo = new ListSetStudentnCourseRepo(studentEmail, uid);
                         arrayList.add(listSetStudentnCourseRepo);
-                        //singleValue.add(studentEmail);
+                        singleValue.add(studentEmail);
                         studentInfo.setText(arrayList.get(i).getStudentMail());
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), "Ops...something is wrong!", Toast.LENGTH_LONG).show();
                     }
 
                 }
-//                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, );
+                try{
+                    if(!arrayList.isEmpty()){
+                        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, singleValue);
+                        spinner.setAdapter(dataAdapter);
+                        //i=spinner.getSelectedItemPosition();
+                    }
+                }catch (NullPointerException e){
 
+                }
 
             }
 
@@ -100,7 +101,10 @@ public class ActivityManualAttendance extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+
         });
+
+
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,46 +115,13 @@ public class ActivityManualAttendance extends AppCompatActivity {
                     else if(i==arrayList.size()-1)
                         i = 0;
                     studentInfo.setText(arrayList.get(i).getStudentMail());
-                    getID_path = "Student/"+arrayList.get(i).getUid()+"/PersonalInfo/";
-                    getID = FirebaseDatabase.getInstance().getReference(getID_path);
-                    getID.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            System.out.println("Get ID Data Snapshot: "+dataSnapshot);
-                            try{
-                                id = dataSnapshot.child("studentID").getValue(String.class);
-                            }catch (Exception e){
-                                id = "Roll not given";
-                            }
+                    id = dbHandlerFetchStudentInfo.getSID(arrayList.get(i).uid);
+                    System.out.println("i: "+i+" id: "+id+" email: "+arrayList.get(i).getStudentMail()+" UID: "+arrayList.get(i).getUid());
+                    setID(id);
 
-                            if(id==""){
-                                Id.setText("Roll not given");
-                            }else{
-                                Id.setText(id);
-                            }
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-                    getAttendance = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/"+arrayList.get(i).getUid()+"/attendance/"+returnDate());
-                    getAttendance.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String attendance = dataSnapshot.getValue(String.class);
-                            System.out.println("Attendance: "+ attendance);
-                            attendanceStatus.setText(attendance);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
+                    System.out.println("i: "+i);
+                    String attendance = dbHandlerAttendanceInfo.getSingleDateAttendance(courseKey,arrayList.get(i).getUid());
+                    attendanceStatus.setText(attendance);
 
                 }else{
                     studentInfo.setText("NULL");
@@ -168,46 +139,12 @@ public class ActivityManualAttendance extends AppCompatActivity {
                     else if(i==0)
                         i = arrayList.size()-1;
 
+                    System.out.println("i: "+i);
                     studentInfo.setText(arrayList.get(i).getStudentMail());
-
-                    getID_path = "Student/"+arrayList.get(i).getUid()+"/PersonalInfo/";
-                    getID = FirebaseDatabase.getInstance().getReference(getID_path);
-                    getID.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            System.out.println("Get ID Data Snapshot: "+dataSnapshot);
-                            try{
-                                id = dataSnapshot.child("studentID").getValue(String.class);
-                            }catch (Exception e){
-                                id = "Roll not given";
-                            }
-                            if(id==""){
-                                Id.setText("Roll not given");
-                            }else{
-                                Id.setText(id);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-                    getAttendance = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/"+arrayList.get(i).getUid()+"/attendance/"+returnDate());
-                    getAttendance.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String attendance = dataSnapshot.getValue(String.class);
-                            System.out.println("Attendance: "+ attendance);
-                            attendanceStatus.setText(attendance);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
+                    id = dbHandlerFetchStudentInfo.getSID(arrayList.get(i).uid);
+                    setID(id);
+                    String attendance = dbHandlerAttendanceInfo.getSingleDateAttendance(courseKey,arrayList.get(i).getUid());
+                    attendanceStatus.setText(attendance);
 
                 }else{
                     studentInfo.setText("NULL");
@@ -221,24 +158,11 @@ public class ActivityManualAttendance extends AppCompatActivity {
             public void onClick(View v) {
                 if(arrayList.size()!=0){
 
-                    databaseReferenceSetAttendance = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/"+arrayList.get(i).getUid()+"/attendance/"+returnDate());
+                    dbHandlerAttendanceInfo.setAttendance(courseKey,arrayList.get(i).getUid(), "1" );
+                    attendanceStatus.setText("1");
 
-                    databaseReferenceSetAttendance.setValue("1");
-
-                    getAttendance = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/"+arrayList.get(i).getUid()+"/attendance/"+returnDate());
-                    getAttendance.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String attendance = dataSnapshot.getValue(String.class);
-                            System.out.println("Attendance: "+ attendance);
-                            setAttendanceStatus(attendanceStatus, attendance);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
+                    String attendance = dbHandlerAttendanceInfo.getSingleDateAttendance(courseKey,arrayList.get(i).getUid());
+                    attendanceStatus.setText(attendance);
 
                 }else{
                     studentInfo.setText("NULL");
@@ -252,25 +176,13 @@ public class ActivityManualAttendance extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(arrayList.size()!=0){
+                   // i=spinner.getSelectedItemPosition();
 
-                    databaseReferenceSetAttendance = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/"+arrayList.get(i).getUid()+"/attendance/"+returnDate());
+                    dbHandlerAttendanceInfo.setAttendance(courseKey,arrayList.get(i).getUid(), "0" );
+                    attendanceStatus.setText("0");
 
-                    databaseReferenceSetAttendance.setValue("0");
-
-                    getAttendance = FirebaseDatabase.getInstance().getReference("Course/"+courseKey+"/a5_studentList/"+arrayList.get(i).getUid()+"/attendance/"+returnDate());
-                    getAttendance.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String attendance = dataSnapshot.getValue(String.class);
-                            System.out.println("Attendance: "+ attendance);
-                            setAttendanceStatus(attendanceStatus, attendance);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
+                    String attendance = dbHandlerAttendanceInfo.getSingleDateAttendance(courseKey,arrayList.get(i).getUid());
+                    attendanceStatus.setText(attendance);
 
                 }else{
                     studentInfo.setText("NULL");
@@ -285,7 +197,7 @@ public class ActivityManualAttendance extends AppCompatActivity {
     public void setDate (TextView view){
 
         Date today = Calendar.getInstance().getTime();//getting date
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");//formating according to my need
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");//formating according to my need
         String date = formatter.format(today);
         view.setText(date);
     }
@@ -299,18 +211,17 @@ public class ActivityManualAttendance extends AppCompatActivity {
 
     public String returnDate(){
         Date today = Calendar.getInstance().getTime();//getting date
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");//formating according to my need
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");//formating according to my need
         String date = formatter.format(today);
         return date;
     }
 
-    public void setAttendanceStatus(TextView view, String status){
-        if(status == "1")
-            view.setText("Present");
-        else if(status == "0")
-            view.setText("Absent");
-        else
-            view.setText("Not Given");
-
+    private void setID(String value){
+        if(value==""){
+            Id.setText("Roll not given");
+        }else{
+            Id.setText(id);
+        }
     }
+
 }

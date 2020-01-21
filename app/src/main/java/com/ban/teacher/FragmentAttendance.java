@@ -21,6 +21,7 @@ public class FragmentAttendance extends Fragment {
         CardView card_attendance_manual = view.findViewById(R.id.manual_attendance);
         CardView card_attendance_device = view.findViewById(R.id.device_attendance);
         CardView card_start_device_enrollment = view.findViewById(R.id.start_device_attendance);
+        CardView card_attendance_sheet = view.findViewById(R.id.attendance_sheet);
 
         card_attendance_manual.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +48,13 @@ public class FragmentAttendance extends Fragment {
             }
         });
 
+        card_attendance_sheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent  = new Intent(getActivity(), ActivityAttendanceSheet.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
