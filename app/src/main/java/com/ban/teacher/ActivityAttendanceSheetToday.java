@@ -23,7 +23,8 @@ import java.util.Date;
 public class ActivityAttendanceSheetToday extends AppCompatActivity {
     private TextView date,day;
     private DatabaseReference studentList, getStudentInfo, getAttendanceStatus;
-    private ArrayList<String> parentList , attendanceStatus;
+    private ArrayList<String> parentList ;
+    private ArrayList<String> attendanceStatus =new ArrayList<String>();
     private ArrayList<ListStudentInfoForTodayAttendance> studentInfo;
     private AdapterAttendanceSheetToday attendanceSheetToday;
     RecyclerView recyclerView;
@@ -43,7 +44,7 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         parentList = new ArrayList<String>();
-        attendanceStatus = new ArrayList<String>();
+        /*attendanceStatus = new ArrayList<String>();*/
         studentInfo = new ArrayList<ListStudentInfoForTodayAttendance>();
 
         studentList = FirebaseDatabase.getInstance().getReference().child("Course/"+ActivityInsideCourse.courseCodeForQrGenerator+"/marks");
@@ -68,17 +69,12 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             try{
                                 String status = dataSnapshot.child(returnDate()).getValue(String.class);
-
-                                if(status == null){
-                                    getAttendanceStatus.child(returnDate()).setValue("0");
-                                    status = dataSnapshot.child(returnDate()).getValue(String.class);
-                                    System.out.println("Status: "+status);
-                                }
-
                                 attendanceStatus.add(status);
                             }catch (Exception e){
+                                System.out.println("inside catch");
                                 getAttendanceStatus.child(returnDate()).setValue("0");
-                                attendanceStatus.add("0");
+                                String status = dataSnapshot.child(returnDate()).getValue(String.class);
+                                attendanceStatus.add(status);
                             }
                         }
 
@@ -87,7 +83,14 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
 
                         }
                     });
+                   /* try{
+                        if(attendanceStatus.get(j).equals(null) || attendanceStatus.get(j).isEmpty()){
+                            System.out.println("Inside Init");
+                            getAttendanceStatus.child(returnDate()).setValue("0");
+                        }
+                    }catch (NullPointerException e){
 
+                    }*/
                     getStudentInfo = FirebaseDatabase.getInstance().getReference().child("Student/"+parentList.get(i)+"/PersonalInfo");
                     getStudentInfo.addValueEventListener(new ValueEventListener() {
                         @Override
@@ -107,6 +110,7 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
                            }catch (Exception e){
                                System.out.println("Error: "+e.getMessage());
                            }
+
                             try{
                                 attendanceSheetToday = new AdapterAttendanceSheetToday(getApplicationContext(), studentInfo, attendanceStatus);
                                 recyclerView.setAdapter(attendanceSheetToday);
