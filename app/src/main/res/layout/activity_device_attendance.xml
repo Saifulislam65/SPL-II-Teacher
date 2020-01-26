@@ -32,6 +32,17 @@
         android:gravity="center"
         android:layout_marginTop="8dp"
         android:textSize="20dp"/>
+    <TextView
+        android:id="@+id/student_count"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:hint="Student Count"/>
     <Button
         android:id="@+id/qr"
         android:layout_below="@id/device_secret"

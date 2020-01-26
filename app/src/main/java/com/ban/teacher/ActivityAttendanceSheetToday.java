@@ -1,11 +1,13 @@
 package com.ban.teacher;
 
+import android.app.DatePickerDialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class ActivityAttendanceSheetToday extends AppCompatActivity {
     private TextView date,day;
@@ -27,6 +30,7 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
     private ArrayList<String> attendanceStatus =new ArrayList<String>();
     private ArrayList<ListStudentInfoForTodayAttendance> studentInfo;
     private AdapterAttendanceSheetToday attendanceSheetToday;
+    final Calendar myCalendar = Calendar.getInstance();
     RecyclerView recyclerView;
     int j = 0;
     @Override
@@ -36,6 +40,30 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
 
         date = findViewById(R.id.date);
         date.setText(returnDate());
+        final DatePickerDialog.OnDateSetListener datePicker = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(ActivityAttendanceSheetToday.this, datePicker, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+
 
         day  = findViewById(R.id.day);
         day.setText(returnDay());
@@ -47,7 +75,7 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
         /*attendanceStatus = new ArrayList<String>();*/
         studentInfo = new ArrayList<ListStudentInfoForTodayAttendance>();
 
-        studentList = FirebaseDatabase.getInstance().getReference().child("Course/"+ActivityInsideCourse.courseCodeForQrGenerator+"/marks");
+        studentList = FirebaseDatabase.getInstance().getReference().child("Course/"+ActivityInsideCourse.courseCodeForQrGenerator+"/attendance");
         studentList.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -68,14 +96,20 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             try{
-                                String status = dataSnapshot.child(returnDate()).getValue(String.class);
-                                attendanceStatus.add(status);
+
+                                String status = dataSnapshot.child(date.getText().toString()).getValue(String.class);
+                                if(status != null){
+                                    attendanceStatus.add(status);
+                                }
+
+                                if(status.equals(null)){
+                                    attendanceStatus.add("00");
+                                }
                             }catch (Exception e){
                                 System.out.println("inside catch");
-                                getAttendanceStatus.child(returnDate()).setValue("0");
-                                String status = dataSnapshot.child(returnDate()).getValue(String.class);
-                                attendanceStatus.add(status);
+                                attendanceStatus.add("00");
                             }
+
                         }
 
                         @Override
@@ -83,14 +117,7 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
 
                         }
                     });
-                   /* try{
-                        if(attendanceStatus.get(j).equals(null) || attendanceStatus.get(j).isEmpty()){
-                            System.out.println("Inside Init");
-                            getAttendanceStatus.child(returnDate()).setValue("0");
-                        }
-                    }catch (NullPointerException e){
 
-                    }*/
                     getStudentInfo = FirebaseDatabase.getInstance().getReference().child("Student/"+parentList.get(i)+"/PersonalInfo");
                     getStudentInfo.addValueEventListener(new ValueEventListener() {
                         @Override
@@ -136,6 +163,7 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
             }
         });
 
+        System.out.println("attendance size: "+attendanceStatus.size());
     }
 
     public String returnDate(){
@@ -151,4 +179,114 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
         String dayOfTheWeek = sdf.format(d);
         return dayOfTheWeek;
     }
+
+    private void updateLabel() {
+        String myFormat = "dd MMMM yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+        SimpleDateFormat sdf2 = new SimpleDateFormat("EEEE");
+
+        date.setText(sdf.format(myCalendar.getTime()));
+        day.setText(sdf2.format(myCalendar.getTime()));
+
+        updateAttendanceStatus();
+    }
+
+    private void updateAttendanceStatus(){
+        studentList = FirebaseDatabase.getInstance().getReference().child("Course/"+ActivityInsideCourse.courseCodeForQrGenerator+"/marks");
+        studentList.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                parentList.clear();
+                studentInfo.clear();
+                attendanceStatus.clear();
+                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                    try{
+                        parentList.add(dataSnapshot1.getKey());
+                        System.out.println(dataSnapshot1.getKey());
+                    }catch (Exception e){
+                        Toast.makeText(getApplicationContext(), "No Student Found!", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+                System.out.println("Parent Size: "+parentList.size());
+                for(int i = 0; i<parentList.size(); i++){
+                    getAttendanceStatus = FirebaseDatabase.getInstance().getReference().child("Course/"+ActivityInsideCourse.courseCodeForQrGenerator+"/attendance/"+parentList.get(i)+"/sheet/");
+                    getAttendanceStatus.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            try{
+                                String status = dataSnapshot.child(date.getText().toString()).getValue(String.class);
+                                if(status != null){
+                                    attendanceStatus.add(status);
+                                }
+
+                                if(status.equals(null)){
+                                    attendanceStatus.add("00");}
+                            }catch (Exception e){
+                                System.out.println("inside catch");
+                               /* getAttendanceStatus.child(returnDate()).setValue("0");
+                                String status = dataSnapshot.child(returnDate()).getValue(String.class);*/
+                                attendanceStatus.add("00");
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                   /* try{
+                        if(attendanceStatus.get(j).equals(null) || attendanceStatus.get(j).isEmpty()){
+                            System.out.println("Inside Init");
+                            getAttendanceStatus.child(returnDate()).setValue("0");
+                        }
+                    }catch (NullPointerException e){
+
+                    }*/
+                    getStudentInfo = FirebaseDatabase.getInstance().getReference().child("Student/"+parentList.get(i)+"/PersonalInfo");
+                    getStudentInfo.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            try{
+                                ListStudentInfoForTodayAttendance todayAttendance = new ListStudentInfoForTodayAttendance();
+
+                                String uid = dataSnapshot.child("studentID").getValue(String.class);
+                                String name = dataSnapshot.child("studentName").getValue(String.class);
+
+                                todayAttendance.setStudentName(name);
+                                todayAttendance.setStudentID(uid);
+
+                                studentInfo.add(todayAttendance);
+
+                            }catch (Exception e){
+                                System.out.println("Error: "+e.getMessage());
+                            }
+
+                            try{
+                                attendanceSheetToday = new AdapterAttendanceSheetToday(getApplicationContext(), studentInfo, attendanceStatus);
+                                recyclerView.setAdapter(attendanceSheetToday);
+                                System.out.println("ID: "+studentInfo.get(j).getStudentID()+" Name: "+studentInfo.get(j).getStudentName()+" Status: "+attendanceStatus.get(j));
+                                j++;
+                            }catch (Exception e){
+                                System.out.println(""+e.getMessage());
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(getApplicationContext(), "Ops...something is wrong!", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(), "Ops...something is wrong!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 }

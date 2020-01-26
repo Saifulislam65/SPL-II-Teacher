@@ -20,10 +20,11 @@ import com.google.firebase.database.ValueEventListener;
 public class ActivityDeviceAttendance extends AppCompatActivity {
 
     Button device, QR;
-    TextView deviceSecret;
+    TextView deviceSecret, studentCount;
     String code;
     int colorCounter = 0;
     DatabaseReference deviceReference;
+    DbHandlerAttendanceInitialization  initialization;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +32,8 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
 
         device = findViewById(R.id.device_attendance_button);
         deviceSecret = findViewById(R.id.device_secret);
+        studentCount = findViewById(R.id.student_count);
+        initialization = new DbHandlerAttendanceInitialization();
         QR = findViewById(R.id.qr);
         QR.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,8 +94,11 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
        // ListDevice listDevice = new ListDevice(ActivityInsideCourse.courseCodeForQrGenerator);
         String secret = deviceSecret.getText().toString();
         if(secret != null){
+            DbHandlerAttendanceInitialization initialization = new DbHandlerAttendanceInitialization();
+            initialization.initialization();
             deviceReference.child(secret).child("courseKey").setValue(ActivityInsideCourse.courseCodeForQrGenerator);
             deviceReference.child(secret).child("mode").setValue("0");
+            nonstopCount();
         }else {
             Toast.makeText(getApplicationContext(), "Invalid Secret Key!",Toast.LENGTH_LONG ).show();
         }
@@ -107,5 +113,24 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
             deviceReference.child(secret).child("courseKey").setValue("NoCourseFound");
             deviceReference.child(secret).child("mode").setValue("2");
         }
+    }
+
+    public void nonstopCount(){
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while(true) {
+                        sleep(2000);
+                        String count  = Integer.toString(initialization.attendanceCount());
+                        studentCount.setText(count);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        thread.start();
     }
 }
