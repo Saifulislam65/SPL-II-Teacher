@@ -49,7 +49,7 @@ public class DbHandlerAttendanceInitialization {
         });
     }
 
-    public int attendanceCount(){
+    public int attendanceCount(final String date){
         i = 0;
         parentList = new ArrayList<String>();
         studentList = FirebaseDatabase.getInstance().getReference().child("Course/"+ActivityInsideCourse.courseCodeForQrGenerator+"/attendance");
@@ -72,13 +72,12 @@ public class DbHandlerAttendanceInitialization {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             try{
-                                String status = dataSnapshot.child(returnDate()).getValue(String.class);
+                                String status = dataSnapshot.child(date).getValue(String.class);
                                 System.out.print(status+" ");
                                 count = count + Integer.parseInt(status);
                             }catch (Exception e){
                                 count = count + 0;
                             }
-                            System.out.println("Inside count: "+count);
                         }
 
                         @Override

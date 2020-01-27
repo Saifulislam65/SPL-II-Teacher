@@ -1,5 +1,7 @@
 package com.ban.teacher;
 
+import java.util.Comparator;
+
 public class ListStudentInfoForTodayAttendance {
     String studentName, studentID, email, attendanceStatus;
 
@@ -43,4 +45,18 @@ public class ListStudentInfoForTodayAttendance {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public static Comparator<ListStudentInfoForTodayAttendance> sortByStudentID = new Comparator<ListStudentInfoForTodayAttendance>() {
+
+        public int compare(ListStudentInfoForTodayAttendance s1, ListStudentInfoForTodayAttendance s2) {
+
+            int rollno1 = Integer.parseInt(s1.getStudentID());
+            int rollno2 = Integer.parseInt(s2.getStudentID());
+
+            /*For ascending order*/
+            return rollno1-rollno2;
+
+            /*For descending order*/
+            //rollno2-rollno1;
+        }};
 }

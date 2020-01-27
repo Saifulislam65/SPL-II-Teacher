@@ -17,14 +17,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class ActivityDeviceAttendance extends AppCompatActivity {
 
     Button device, QR;
     TextView deviceSecret, studentCount;
     String code;
+    Thread thread;
     int colorCounter = 0;
     DatabaseReference deviceReference;
     DbHandlerAttendanceInitialization  initialization;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +97,7 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
     }
 
     private void deviceOperation() {
-       // ListDevice listDevice = new ListDevice(ActivityInsideCourse.courseCodeForQrGenerator);
+        // ListDevice listDevice = new ListDevice(ActivityInsideCourse.courseCodeForQrGenerator);
         String secret = deviceSecret.getText().toString();
         if(secret != null){
             DbHandlerAttendanceInitialization initialization = new DbHandlerAttendanceInitialization();
@@ -113,16 +119,24 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
             deviceReference.child(secret).child("courseKey").setValue("NoCourseFound");
             deviceReference.child(secret).child("mode").setValue("2");
         }
+        try{
+            thread.interrupt();
+            finish();
+        }catch (Exception e){
+            finish();
+        }
+
     }
 
     public void nonstopCount(){
-        Thread thread = new Thread() {
+        thread = new Thread() {
             @Override
             public void run() {
+                int i = 0;
                 try {
                     while(true) {
                         sleep(2000);
-                        String count  = Integer.toString(initialization.attendanceCount());
+                        String count  = Integer.toString(initialization.attendanceCount(returnDate()));
                         studentCount.setText(count);
                     }
                 } catch (InterruptedException e) {
@@ -132,5 +146,11 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
         };
 
         thread.start();
+    }
+    public String returnDate(){
+        Date today = Calendar.getInstance().getTime();//getting date
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");//formating according to my need
+        String date = formatter.format(today);
+        return date;
     }
 }

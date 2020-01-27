@@ -1,6 +1,7 @@
 package com.ban.teacher;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,19 +21,25 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
 public class ActivityAttendanceSheetToday extends AppCompatActivity {
-    private TextView date,day;
+    private TextView date,day, totalStudent;
     private DatabaseReference studentList, getStudentInfo, getAttendanceStatus;
     private ArrayList<String> parentList ;
     private ArrayList<String> attendanceStatus =new ArrayList<String>();
-    private ArrayList<ListStudentInfoForTodayAttendance> studentInfo;
+    ArrayList<ListStudentInfoForTodayAttendance> studentInfo = new ArrayList<ListStudentInfoForTodayAttendance>();
     private AdapterAttendanceSheetToday attendanceSheetToday;
+    private DbHandlerAttendanceInitialization initialization;
     final Calendar myCalendar = Calendar.getInstance();
     RecyclerView recyclerView;
+    Thread thread;
+    int i = 0;
     int j = 0;
+    int k = 0;
+    String attendance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,12 +75,16 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
         day  = findViewById(R.id.day);
         day.setText(returnDay());
 
+        totalStudent  = findViewById(R.id.total_Student);
+        updateStudentCount();
+
+
         recyclerView = findViewById(R.id.attendance_list_today_recycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         parentList = new ArrayList<String>();
         /*attendanceStatus = new ArrayList<String>();*/
-        studentInfo = new ArrayList<ListStudentInfoForTodayAttendance>();
+       /* studentInfo = new ArrayList<ListStudentInfoForTodayAttendance>();*/
 
         studentList = FirebaseDatabase.getInstance().getReference().child("Course/"+ActivityInsideCourse.courseCodeForQrGenerator+"/attendance");
         studentList.addValueEventListener(new ValueEventListener() {
@@ -90,7 +101,7 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
 
                 }
                 System.out.println("Parent Size: "+parentList.size());
-                for(int i = 0; i<parentList.size(); i++){
+                for(i = 0; i<parentList.size(); i++){
                     getAttendanceStatus = FirebaseDatabase.getInstance().getReference().child("Course/"+ActivityInsideCourse.courseCodeForQrGenerator+"/attendance/"+parentList.get(i)+"/sheet/");
                     getAttendanceStatus.addValueEventListener(new ValueEventListener() {
                         @Override
@@ -131,6 +142,9 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
 
                                todayAttendance.setStudentName(name);
                                todayAttendance.setStudentID(uid);
+                               todayAttendance.setAttendanceStatus(attendanceStatus.get(k));
+                               System.out.println("attendance set "+attendanceStatus.get(k));
+                               k++;
 
                                studentInfo.add(todayAttendance);
 
@@ -139,7 +153,8 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
                            }
 
                             try{
-                                attendanceSheetToday = new AdapterAttendanceSheetToday(getApplicationContext(), studentInfo, attendanceStatus);
+                                Collections.sort(studentInfo, ListStudentInfoForTodayAttendance.sortByStudentID);
+                                attendanceSheetToday = new AdapterAttendanceSheetToday(getApplicationContext(), studentInfo);
                                 recyclerView.setAdapter(attendanceSheetToday);
                                 System.out.println("ID: "+studentInfo.get(j).getStudentID()+" Name: "+studentInfo.get(j).getStudentName()+" Status: "+attendanceStatus.get(j));
                                 j++;
@@ -189,9 +204,11 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
         day.setText(sdf2.format(myCalendar.getTime()));
 
         updateAttendanceStatus();
+        updateStudentCount();
     }
 
     private void updateAttendanceStatus(){
+        k=0;
         studentList = FirebaseDatabase.getInstance().getReference().child("Course/"+ActivityInsideCourse.courseCodeForQrGenerator+"/marks");
         studentList.addValueEventListener(new ValueEventListener() {
             @Override
@@ -224,8 +241,6 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
                                     attendanceStatus.add("00");}
                             }catch (Exception e){
                                 System.out.println("inside catch");
-                               /* getAttendanceStatus.child(returnDate()).setValue("0");
-                                String status = dataSnapshot.child(returnDate()).getValue(String.class);*/
                                 attendanceStatus.add("00");
                             }
                         }
@@ -235,14 +250,7 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
 
                         }
                     });
-                   /* try{
-                        if(attendanceStatus.get(j).equals(null) || attendanceStatus.get(j).isEmpty()){
-                            System.out.println("Inside Init");
-                            getAttendanceStatus.child(returnDate()).setValue("0");
-                        }
-                    }catch (NullPointerException e){
 
-                    }*/
                     getStudentInfo = FirebaseDatabase.getInstance().getReference().child("Student/"+parentList.get(i)+"/PersonalInfo");
                     getStudentInfo.addValueEventListener(new ValueEventListener() {
                         @Override
@@ -256,7 +264,9 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
 
                                 todayAttendance.setStudentName(name);
                                 todayAttendance.setStudentID(uid);
-
+                                todayAttendance.setAttendanceStatus(attendanceStatus.get(k));
+                                System.out.println("attendance set "+attendanceStatus.get(k));
+                                k++;
                                 studentInfo.add(todayAttendance);
 
                             }catch (Exception e){
@@ -264,7 +274,8 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
                             }
 
                             try{
-                                attendanceSheetToday = new AdapterAttendanceSheetToday(getApplicationContext(), studentInfo, attendanceStatus);
+                                Collections.sort(studentInfo, ListStudentInfoForTodayAttendance.sortByStudentID);
+                                attendanceSheetToday = new AdapterAttendanceSheetToday(getApplicationContext(), studentInfo);
                                 recyclerView.setAdapter(attendanceSheetToday);
                                 System.out.println("ID: "+studentInfo.get(j).getStudentID()+" Name: "+studentInfo.get(j).getStudentName()+" Status: "+attendanceStatus.get(j));
                                 j++;
@@ -288,5 +299,45 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
             }
         });
     }
+
+    private void updateStudentCount(){
+        initialization = new DbHandlerAttendanceInitialization();
+        thread = new Thread() {
+            @Override
+            public void run() {
+                int i = 0;
+                try {
+                    while(true) {
+                        i++;
+                        if(i == 5){
+                            thread.interrupt();
+                            break;
+                        }
+
+                        sleep(2000);
+                        totalStudent.setText(Integer.toString(initialization.attendanceCount(date.getText().toString())));
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        thread.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        try{
+            thread.interrupt();
+            finish();
+        }catch (Exception e){
+            finish();
+            thread.interrupt();
+        }
+
+    }
+
 
 }

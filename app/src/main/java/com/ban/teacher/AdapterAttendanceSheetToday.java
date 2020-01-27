@@ -13,13 +13,11 @@ import java.util.ArrayList;
 public class AdapterAttendanceSheetToday extends RecyclerView.Adapter<AdapterAttendanceSheetToday.ViewHolder>{
     Context context;
     ArrayList<ListStudentInfoForTodayAttendance> attendance;
-    ArrayList<String> attendanceValue;
 
 
-    public AdapterAttendanceSheetToday(Context context, ArrayList<ListStudentInfoForTodayAttendance> attendance, ArrayList<String> attendanceValue){
+    public AdapterAttendanceSheetToday(Context context, ArrayList<ListStudentInfoForTodayAttendance> attendance){
         this.context = context;
         this.attendance = attendance;
-        this.attendanceValue = attendanceValue;
     }
 
     @NonNull
@@ -32,7 +30,7 @@ public class AdapterAttendanceSheetToday extends RecyclerView.Adapter<AdapterAtt
     public void onBindViewHolder(@NonNull AdapterAttendanceSheetToday.ViewHolder viewHolder, final int i) {
         viewHolder.name.setText(attendance.get(i).getStudentName());
         viewHolder.sid.setText(attendance.get(i).getStudentID());
-        viewHolder.attendanceStatus.setText(attendanceValue.get(i));
+        viewHolder.attendanceStatus.setText(attendance.get(i).getAttendanceStatus());
     }
 
     @Override
