@@ -7,7 +7,7 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Toast;
 
 
 public class FragmentDashboard extends Fragment {
@@ -25,17 +25,19 @@ public class FragmentDashboard extends Fragment {
         card_assignment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ActivityAssignment.class);
+               /* Intent intent = new Intent(getActivity(), ActivityAssignment.class);
                 intent.putExtra("CoursePath", ActivityInsideCourse.coursePath);
-                startActivity(intent);
+                startActivity(intent);*/
+                Toast.makeText(getContext(), "Coming Soon :)",Toast.LENGTH_LONG ).show();
             }
         });
 
         card_marks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ActivityMarks.class);
-                startActivity(intent);
+                /*Intent intent = new Intent(getActivity(), ActivityMarks.class);
+                startActivity(intent);*/
+                Toast.makeText(getContext(), "Coming Soon :)",Toast.LENGTH_LONG ).show();
 
             }
         });
