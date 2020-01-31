@@ -24,7 +24,8 @@ import java.util.Date;
 public class ActivityDeviceAttendance extends AppCompatActivity {
 
     Button device, QR;
-    TextView deviceSecret, studentCount;
+    TextView studentCount;
+    EditText deviceSecret;
     String code;
     Thread thread;
     int colorCounter = 0;
@@ -121,9 +122,8 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
         }
         try{
             thread.interrupt();
-            finish();
         }catch (Exception e){
-            finish();
+            //finish();
         }
 
     }
