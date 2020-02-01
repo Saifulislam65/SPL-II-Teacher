@@ -17,13 +17,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class ActivityDeviceAttendance extends AppCompatActivity {
 
     Button device, QR;
-    TextView deviceSecret;
+    TextView studentCount;
+    EditText deviceSecret;
     String code;
+    Thread thread;
     int colorCounter = 0;
     DatabaseReference deviceReference;
+    DbHandlerAttendanceInitialization  initialization;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +39,8 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
 
         device = findViewById(R.id.device_attendance_button);
         deviceSecret = findViewById(R.id.device_secret);
+        studentCount = findViewById(R.id.student_count);
+        initialization = new DbHandlerAttendanceInitialization();
         QR = findViewById(R.id.qr);
         QR.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,11 +98,14 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
     }
 
     private void deviceOperation() {
-       // ListDevice listDevice = new ListDevice(ActivityInsideCourse.courseCodeForQrGenerator);
+        // ListDevice listDevice = new ListDevice(ActivityInsideCourse.courseCodeForQrGenerator);
         String secret = deviceSecret.getText().toString();
         if(secret != null){
+            DbHandlerAttendanceInitialization initialization = new DbHandlerAttendanceInitialization();
+            initialization.initialization();
             deviceReference.child(secret).child("courseKey").setValue(ActivityInsideCourse.courseCodeForQrGenerator);
             deviceReference.child(secret).child("mode").setValue("0");
+            nonstopCount();
         }else {
             Toast.makeText(getApplicationContext(), "Invalid Secret Key!",Toast.LENGTH_LONG ).show();
         }
@@ -107,5 +120,37 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
             deviceReference.child(secret).child("courseKey").setValue("NoCourseFound");
             deviceReference.child(secret).child("mode").setValue("2");
         }
+        try{
+            thread.interrupt();
+        }catch (Exception e){
+            //finish();
+        }
+
+    }
+
+    public void nonstopCount(){
+        thread = new Thread() {
+            @Override
+            public void run() {
+                int i = 0;
+                try {
+                    while(true) {
+                        sleep(2000);
+                        String count  = Integer.toString(initialization.attendanceCount(returnDate()));
+                        studentCount.setText(count);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        thread.start();
+    }
+    public String returnDate(){
+        Date today = Calendar.getInstance().getTime();//getting date
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");//formating according to my need
+        String date = formatter.format(today);
+        return date;
     }
 }
