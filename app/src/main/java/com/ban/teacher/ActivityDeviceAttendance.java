@@ -27,6 +27,7 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
     TextView studentCount;
     EditText deviceSecret;
     String code;
+    String count;
     Thread thread;
     int colorCounter = 0;
     DatabaseReference deviceReference;
@@ -70,6 +71,7 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
                     device.setBackgroundResource(R.drawable.round_background_ash);
                     device.setText("Start");
                     colorCounter++;
+                    deviceStopOperation();
                 }else {
                     device.setBackgroundResource(R.drawable.round_background);
                     device.setText("Stop");
@@ -80,7 +82,6 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
             }
         });
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -111,7 +112,18 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
         }
     }
 
-    @Override
+    private void deviceStopOperation() {
+        String secret = deviceSecret.getText().toString();
+        if(secret != null){
+            deviceReference.child(secret).child("courseKey").setValue("No Course Found");
+            deviceReference.child(secret).child("mode").setValue("2");
+            nonstopCount();
+        }else {
+            Toast.makeText(getApplicationContext(), "Invalid Secret Key!",Toast.LENGTH_LONG ).show();
+        }
+    }
+
+/*    @Override
     protected void onPause() {
         super.onPause();
         String secret = deviceSecret.getText().toString();
@@ -126,7 +138,7 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
             //finish();
         }
 
-    }
+    }*/
 
     public void nonstopCount(){
         thread = new Thread() {
@@ -136,8 +148,15 @@ public class ActivityDeviceAttendance extends AppCompatActivity {
                 try {
                     while(true) {
                         sleep(2000);
-                        String count  = Integer.toString(initialization.attendanceCount(returnDate()));
-                        studentCount.setText(count);
+                        count  = Integer.toString(initialization.attendanceCount(returnDate()));
+                        runOnUiThread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                studentCount.setText(count);
+                            }
+                        });
+
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

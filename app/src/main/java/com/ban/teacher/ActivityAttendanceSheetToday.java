@@ -33,6 +33,7 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
     ArrayList<ListStudentInfoForTodayAttendance> studentInfo = new ArrayList<ListStudentInfoForTodayAttendance>();
     private AdapterAttendanceSheetToday attendanceSheetToday;
     private DbHandlerAttendanceInitialization initialization;
+    private String total;
     final Calendar myCalendar = Calendar.getInstance();
     RecyclerView recyclerView;
     Thread thread;
@@ -315,7 +316,15 @@ public class ActivityAttendanceSheetToday extends AppCompatActivity {
                         }
 
                         sleep(2000);
-                        totalStudent.setText(Integer.toString(initialization.attendanceCount(date.getText().toString())));
+                        total = Integer.toString(initialization.attendanceCount(date.getText().toString()));
+
+                        runOnUiThread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                totalStudent.setText(total);
+                            }
+                        });
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
