@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ban.teacher">
+    package="com.ban.teacherBAN">
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -9,23 +10,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityAttendanceSheetToday"></activity>
-        <activity android:name=".ActivityCourseEnrollmentMode" />
-        <activity android:name=".ActivityAttendanceSheet" />
-        <activity android:name=".ActivityTeacherInfo" />
-        <activity android:name=".ActivityStartDeviceEnrollment" />
-        <activity android:name=".ActivityManualAttendance" />
-        <activity android:name=".ActivityDeviceAttendance" />
-        <activity android:name=".ActivityResource" />
-        <activity android:name=".ActivityMarks" />
-        <activity android:name=".ActivityQRcodeGenerator" />
-        <activity android:name=".ActivityAssignment" />
+        <activity android:name="com.ban.teacherBAN.ActivityAttendanceSheetToday"></activity>
+        <activity android:name="com.ban.teacherBAN.ActivityCourseEnrollmentMode" />
+        <activity android:name="com.ban.teacherBAN.ActivityAttendanceSheet" />
+        <activity android:name="com.ban.teacherBAN.ActivityTeacherInfo" />
+        <activity android:name="com.ban.teacherBAN.ActivityStartDeviceEnrollment" />
+        <activity android:name="com.ban.teacherBAN.ActivityManualAttendance" />
+        <activity android:name="com.ban.teacherBAN.ActivityDeviceAttendance" />
+        <activity android:name="com.ban.teacherBAN.ActivityResource" />
+        <activity android:name="com.ban.teacherBAN.ActivityMarks" />
+        <activity android:name="com.ban.teacherBAN.ActivityQRcodeGenerator" />
+        <activity android:name="com.ban.teacherBAN.ActivityAssignment" />
         <activity
-            android:name=".ActivityInsideCourse"
+            android:name="com.ban.teacherBAN.ActivityInsideCourse"
             android:label="@string/title_activity_course" />
-        <activity android:name=".ActivityCreateCourse" />
+        <activity android:name="com.ban.teacherBAN.ActivityCreateCourse" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.ban.teacherBAN.MainActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
